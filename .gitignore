@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+dist/
+.turbo/
+.env
+.env.local
+coverage/
+playwright-report/
+test-results/
+supabase/.temp/
+dist-native/

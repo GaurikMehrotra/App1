@@ -1,0 +1,10 @@
+create table public.user_mutes(id uuid primary key default gen_random_uuid(),college_id uuid not null references colleges,owner_id uuid not null,target_id uuid not null,created_at timestamptz not null default now(),unique(owner_id,target_id),foreign key(owner_id,college_id) references profiles(id,college_id) on delete cascade,foreign key(target_id,college_id) references profiles(id,college_id) on delete cascade);
+alter table user_mutes enable row level security;
+create policy mute_read on user_mutes for select to authenticated using(college_id=private.college() and owner_id=auth.uid());
+create policy mute_insert on user_mutes for insert to authenticated with check(college_id=private.college() and owner_id=auth.uid() and private.active());
+create policy mute_delete on user_mutes for delete to authenticated using(owner_id=auth.uid() and college_id=private.college());
+create or replace function private.blocked_author(pid uuid) returns boolean language sql stable security definer set search_path='' as $$select exists(select 1 from private.post_authors a where a.post_id=pid and (exists(select 1 from public.blocks b where b.target_id=a.user_id and b.owner_id=auth.uid()) or exists(select 1 from public.user_mutes m where m.target_id=a.user_id and m.owner_id=auth.uid())))$$;
+drop policy tenant_read on comments;
+create policy tenant_read on comments for select to authenticated using(college_id=private.college() and deleted_at is null and not exists(select 1 from public.blocks b where b.owner_id=auth.uid() and b.target_id=comments.owner_id) and not exists(select 1 from public.user_mutes m where m.owner_id=auth.uid() and m.target_id=comments.owner_id));
+grant select,insert,delete on user_mutes to authenticated;
+grant all on user_mutes to service_role;

@@ -1,0 +1,1 @@
+{"imports":{"@supabase/supabase-js":"npm:@supabase/supabase-js@2.117.3","zod":"npm:zod@3.24.2","fast-xml-parser":"npm:fast-xml-parser@5.3.6"},"compilerOptions":{"strict":true}}

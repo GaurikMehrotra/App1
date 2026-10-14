@@ -1,0 +1,28 @@
+{
+  "name": "campus-platform",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "web": "pnpm --filter @campus/app web",
+    "android": "pnpm --filter @campus/app android",
+    "ios": "pnpm --filter @campus/app ios",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "build": "turbo run build",
+    "test:e2e": "playwright test",
+    "test:db": "bash scripts/test-db.sh"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "~5.9.2",
+    "eslint": "^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "typescript-eslint": "^8.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "@types/jest": "^29.5.0",
+    "@playwright/test": "^1.55.0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Campus",
+    "slug": "campus-community",
+    "scheme": "campus",
+    "version": "1.0.0",
+    "orientation": "default",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "edu.campus.community"
+    },
+    "android": {
+      "package": "edu.campus.community"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-notifications",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow camera access to scan event check-in QR codes."
+        }
+      ]
+    ]
+  }
+}
